@@ -1,3 +1,6 @@
+tensorflow
+keras
+pmdarima
 pandas
 matplotlib
 numpy
@@ -8,5 +11,4 @@ pmdarima
 isodate
 bokeh
 monthdelta
-tensorflow
-keras
+jupyter
