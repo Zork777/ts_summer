@@ -77,6 +77,6 @@ class Dataset:
         if not path:
             raise Exception('Dataset path should not be empty')
         if not os.path.exists(path):
-            raise Exception('The path doesn\'t exist')
+            raise Exception(f'The path doesn\'t exist {path}')
 
         self._path = path

@@ -31,11 +31,12 @@ def output_to_file(plotter):
     return wrapper
 
 
-def plot_ts(ts: pd.Series, *args, title=''):
+def plot_ts(ts: pd.Series, *args, title='', legends=''):
     p = _make_time_series_figure(title)
 
     # plot required time series
-    p.line(ts.index, ts.values, line_width=LINE_WIDTH)
+    legend_label = legends[0] if len(legends) == len(args)+1 else ''    
+    p.line(ts.index, ts.values, line_width=LINE_WIDTH, legend_label=legend_label)
 
     # plot optional, if provided, following colors order below
     colors_order = [
@@ -47,6 +48,7 @@ def plot_ts(ts: pd.Series, *args, title=''):
         'indigo',
         'black',
     ]
+   
 
     for idx, ts in enumerate(args):
         if not isinstance(ts, pd.Series):
@@ -57,8 +59,12 @@ def plot_ts(ts: pd.Series, *args, title=''):
             color = colors_order[idx]
         else:
             color = random.choice(named.__all__)
-        p.line(x, y, color=color, line_width=LINE_WIDTH)
-
+        if legend_label:
+            legend_label = legends[idx+1]
+            p.legend.location = "top_left"
+            p.legend.click_policy="hide"
+        p.line(x, y, color=color, line_width=LINE_WIDTH, legend_label=legend_label)
+    
     return p
 
 
